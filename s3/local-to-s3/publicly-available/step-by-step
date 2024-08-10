@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# considering bucket already exists
+aws s3api put-public-access-block --bucket $1 --public-access-block-configuration file://./s3/local-to-s3/publicly-available/adjust-bucket-public-access-policies.json
+
+sed "s/VAR_BUCKET_NAME/$1/" ./s3/local-to-s3/publicly-available/allow-public-access-to-objects.json > ./s3/local-to-s3/publicly-available/temp
+aws s3api put-bucket-policy --bucket $1 --policy file://./s3/local-to-s3/publicly-available/temp
+rm ./s3/local-to-s3/publicly-available/temp
