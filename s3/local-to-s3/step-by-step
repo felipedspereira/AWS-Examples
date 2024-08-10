@@ -1,2 +1,2 @@
 #!/bin/bash
-aws s3 cp ~/Documents/documentos/cnh.jpg s3://$1
+aws s3 cp $1 s3://$2
