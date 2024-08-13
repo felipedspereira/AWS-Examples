@@ -1,0 +1,7 @@
+#!/bin/bash
+
+TEMPLATE_LOCATION=./s3/cloudformation/template.yaml
+
+aws cloudformation deploy \
+  --template-file $TEMPLATE_LOCATION \
+  --stack-name my-simple-s3-bucket
