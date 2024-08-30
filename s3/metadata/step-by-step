@@ -1,0 +1,4 @@
+#!/bin/bash
+echo "hello hello" > s3/metadata/myfile
+
+aws s3api put-object --bucket felipedspereira --key myfile --body s3/metadata/myfile --metadata owner="Felipe Pereira"
