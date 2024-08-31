@@ -1,0 +1,16 @@
+#!/bin/bash
+
+DIR=s3/storage-class/express-onezone
+BUCKET_NAME=felipedspereiraexpress1
+
+echo "WARNING: this example does not work yet"
+
+echo "Hello Felipe" > $DIR/myfile
+
+aws s3api create-bucket --bucket $BUCKET_NAME --create-bucket-configuration file://$DIR/s3express-bucket-config.json --region us-east-1
+
+aws s3api put-object --body $DIR/myfile --bucket $BUCKET_NAME --key myfile
+
+# cleanup
+rm $DIR/myfile
+echo "aws s3api delete-object --bucket $BUCKET_NAME --key myfile" | at now + 1 minute

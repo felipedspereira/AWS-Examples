@@ -1,0 +1,10 @@
+{
+  "Location": {
+    "Type": "AvailabilityZone",
+    "Name": "us-east-1"
+  },
+  "Bucket": {
+    "DataRedundancy": "SingleAvailabilityZone",
+    "Type": "Directory"
+  }
+}

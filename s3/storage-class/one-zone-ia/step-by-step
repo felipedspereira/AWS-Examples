@@ -6,7 +6,9 @@ echo "Hello Felipe" > $DIR/myfile
 
 aws s3api put-object --body $DIR/myfile --bucket felipedspereira --key myfile --storage-class ONEZONE_IA
 
+# cleanup
 rm $DIR/myfile
+echo "aws s3api delete-object --bucket felipedspereira --key myfile" | at now + 1 minute
 
 
 
