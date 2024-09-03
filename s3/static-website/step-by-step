@@ -1,0 +1,25 @@
+#!/bin/bash
+bucket_name=felipedspereira-budget-app
+directory=s3/static-website
+
+aws s3 mb s3://$bucket_name
+
+aws s3api put-public-access-block --bucket $bucket_name --public-access-block-configuration "BlockPublicAcls=true,IgnorePublicAcls=true,BlockPublicPolicy=false,RestrictPublicBuckets=false"
+
+aws s3api put-bucket-policy --bucket $bucket_name --policy file://$directory/allow-public-access-to-objects.json
+
+aws s3api put-bucket-website --bucket $bucket_name  --website-configuration file://$directory/website.json
+
+aws s3api put-object --bucket $bucket_name  --key index.html --body $directory/public/index.html --content-type text/html
+
+aws s3api put-object --bucket $bucket_name  --key error.html --body $directory/public/error.html --content-type text/html
+
+aws s3 sync s3/static-website/public s3://$bucket_name
+
+echo "cleaning up in 30 seconds.."
+
+sleep 30
+aws s3 rm --recursive s3://$bucket_name
+
+sleep 1
+aws s3api delete-bucket --bucket $bucket_name
